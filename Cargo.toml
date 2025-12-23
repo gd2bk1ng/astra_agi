@@ -1,0 +1,2 @@
+cargo new astra_agi --lib
+cd astra_agi
