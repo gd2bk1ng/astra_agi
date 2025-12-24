@@ -14,6 +14,8 @@
 
 pub mod ontology;
 pub mod reasoner;
+pub mod query;
+pub mod query_executor;
 
 pub use ontology::{Ontology, Id, Concept, Entity, AttributeType, AttributeValue};
 pub use reasoner::Reasoner;
