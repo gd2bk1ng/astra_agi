@@ -1,5 +1,5 @@
 // =============================================================================
-//  Astra Executor Runtime (AER)
+//  Astra AGI -Executor Runtime (AER)
 //  File: executor.rs
 //
 //  Description: Core scheduler for Astra programs, managing concurrency and timing.
