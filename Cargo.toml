@@ -15,9 +15,8 @@ keywords = ["AGI", "intent-driven", "runtime", "artificial intelligence", "astra
 categories = ["artificial-intelligence", "runtime"]
 
 [dependencies]
-# Astra language core dependency fetched from localhost
-astra_lang = { path = "../astra_lang" }
-
+# Astra language core dependency fetched locally
+astra_lang = { path = "src/interfaces/language/astra_lang" }
 
 [package.metadata.docs.rs]
 all-features = true
