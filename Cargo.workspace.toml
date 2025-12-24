@@ -1,0 +1,5 @@
+[workspace]
+members = [
+    ".",
+    "src/interfaces/language/astra_lang"
+]
