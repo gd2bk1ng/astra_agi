@@ -1,5 +1,5 @@
 // =============================================================================
-//  Astra Executor Runtime (AER)
+//  Astra AGI - Executor Runtime (AER)
 //  File: executor.rs
 //
 //  Description: Core executor for Astra programs, handling intent and temporal logic.
