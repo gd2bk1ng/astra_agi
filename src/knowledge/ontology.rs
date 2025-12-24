@@ -12,6 +12,8 @@
 //  Please see the root level LICENSE-MIT and LICENSE-APACHE files for details.
 // =============================================================================
 
+use crate::knowledge::storage::{Storage, SledStorage};
+use anyhow::Result;
 use serde::{Serialize, Deserialize};
 use std::collections::{HashMap, HashSet};
 
@@ -32,7 +34,7 @@ pub struct Entity {
     pub attribute_values: HashMap<String, AttributeValue>,
 }
 
-#[derive(Debug, Clone, Serialize, Deserialize, PartialEq)]
+#[derive(Debug, Clone, Serialize, Deserialize, PartialEq, Eq, Hash)]
 pub enum AttributeType {
     String,
     Integer,
@@ -41,7 +43,7 @@ pub enum AttributeType {
     Reference(Id),
 }
 
-#[derive(Debug, Clone, Serialize, Deserialize, PartialEq)]
+#[derive(Debug, Clone, Serialize, Deserialize, PartialEq, Eq, Hash)]
 pub enum AttributeValue {
     String(String),
     Integer(i64),
@@ -69,7 +71,7 @@ pub struct Relationship {
 }
 
 #[derive(Debug, Serialize, Deserialize)]
-pub struct Ontology {
+pub struct Ontology<S: Storage> {
     next_id: Id,
 
     concepts: HashMap<Id, Concept>,
@@ -89,23 +91,28 @@ pub struct Ontology {
 
     // Adjacency list: entity -> neighbors (to_entity)
     adjacency_list: HashMap<Id, HashSet<Id>>,
+
+    // Storage backend for persistence
+    storage: S,
 }
 
-impl Ontology {
-    pub fn new() -> Self {
+impl<S: Storage> Ontology<S> {
+    /// Creates a new empty ontology with the given storage backend
+    pub fn new(storage: S) -> Self {
         Ontology {
             next_id: 1,
             concepts: HashMap::new(),
             concepts_by_name: HashMap::new(),
             entities: HashMap::new(),
             relationships: HashMap::new(),
-
             attribute_index: HashMap::new(),
             relationship_index: HashMap::new(),
             adjacency_list: HashMap::new(),
+            storage,
         }
     }
 
+    /// Adds a new concept with optional parents and attributes
     pub fn add_concept(&mut self, name: &str, parents: &[Id], attributes: HashMap<String, AttributeType>) -> Id {
         let id = self.next_id;
         self.next_id += 1;
@@ -123,6 +130,7 @@ impl Ontology {
         id
     }
 
+    /// Adds a new entity of a concept with attribute values
     pub fn add_entity(&mut self, concept_id: Id, attribute_values: HashMap<String, AttributeValue>) -> Id {
         let id = self.next_id;
         self.next_id += 1;
@@ -148,6 +156,7 @@ impl Ontology {
         id
     }
 
+    /// Adds a typed relationship between two entities
     pub fn add_relationship(&mut self, from_entity: Id, to_entity: Id, rel_type: RelationshipType) -> Id {
         let id = self.next_id;
         self.next_id += 1;
@@ -175,7 +184,7 @@ impl Ontology {
         id
     }
 
-    // Efficient lookup for entities by attribute value using index
+    /// Efficient lookup for entities by attribute value using index
     pub fn find_entities_by_attribute_indexed(&self, attr_name: &str, attr_value: &AttributeValue) -> Vec<&Entity> {
         if let Some(val_map) = self.attribute_index.get(attr_name) {
             if let Some(entity_ids) = val_map.get(attr_value) {
@@ -188,7 +197,7 @@ impl Ontology {
         }
     }
 
-    // Efficient retrieval of relationships from an entity by type
+    /// Efficient retrieval of relationships from an entity by optional relationship type filter
     pub fn get_relationships_indexed(&self, entity_id: Id, rel_type_filter: Option<RelationshipType>) -> Vec<&Relationship> {
         if let Some(rel_map) = self.relationship_index.get(&entity_id) {
             match rel_type_filter {
@@ -208,7 +217,7 @@ impl Ontology {
         }
     }
 
-    // Example: Get neighbors of an entity (adjacent entities)
+    /// Get neighbors (adjacent entities) of a given entity
     pub fn get_neighbors(&self, entity_id: Id) -> Vec<&Entity> {
         if let Some(neighbors) = self.adjacency_list.get(&entity_id) {
             neighbors.iter().filter_map(|id| self.entities.get(id)).collect()
@@ -217,5 +226,28 @@ impl Ontology {
         }
     }
 
-    // Existing methods like get_concept, get_entity, find_entities_by_concept etc. remain unchanged
+    /// Retrieve a concept by ID
+    pub fn get_concept(&self, id: Id) -> Option<&Concept> {
+        self.concepts.get(&id)
+    }
+
+    /// Retrieve an entity by ID
+    pub fn get_entity(&self, id: Id) -> Option<&Entity> {
+        self.entities.get(&id)
+    }
+
+    /// Save the ontology state to storage as JSON
+    pub fn save_to_storage(&self) -> Result<()> {
+        let json = serde_json::to_string_pretty(self)?;
+        self.storage.save("ontology_state", json.as_bytes())
+    }
+
+    /// Load the ontology state from storage
+    pub fn load_from_storage(&mut self) -> Result<()> {
+        if let Some(data) = self.storage.load("ontology_state")? {
+            let loaded: Ontology<S> = serde_json::from_slice(&data)?;
+            *self = loaded;
+        }
+        Ok(())
+    }
 }
