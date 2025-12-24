@@ -1,2 +1,22 @@
-cargo new astra_agi --lib
-cd astra_agi
+[package]
+name = "astra_agi"
+version = "0.1.0"
+authors = ["Alex Roussinov <gd2bk1ng@proton.me>"]
+edition = "2024"
+description = """
+Astra AGI is an intent-driven, adaptive runtime for the Astra programming language,
+designed to build conscious, evolving artificial general intelligence with moral reasoning,
+personalized personality, and natural interaction capabilities.
+"""
+license = "MIT OR Apache-2.0"
+repository = "https://github.com/gd2bk1ng/astra_lang"
+readme = "README.md"
+keywords = ["AGI", "intent-driven", "runtime", "artificial intelligence", "astra language"]
+categories = ["artificial-intelligence", "runtime"]
+
+[dependencies]
+# Astra language core dependency fetched from GitHub repository
+astra_lang = { git = "https://github.com/gd2bk1ng/astra_lang.git", branch = "main" }
+
+[package.metadata.docs.rs]
+all-features = true
