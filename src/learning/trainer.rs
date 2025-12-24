@@ -1,6 +1,4 @@
-trainer.rs    // Learning algorithms, model updates
-
-  // =============================================================================
+// =============================================================================
 //  Astra AGI - Learning Algorithm Model (LAM)
 //  File: trainer.rs
 //
