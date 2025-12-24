@@ -1,3 +1,7 @@
+# Workspace manifest for Astra AGI project.
+# This file defines the workspace members, allowing unified builds, tests, and dependency
+# resolution across the Astra AGI runtime and the embedded Astra language core crates.
+
 [workspace]
 members = [
     ".",
