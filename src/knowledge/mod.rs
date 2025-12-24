@@ -12,10 +12,13 @@
 //  Please see the root level LICENSE-MIT and LICENSE-APACHE files for details.
 // =============================================================================
 
-pub mod ontology;
-pub mod reasoner;
+mod tests;
+
 pub mod query;
 pub mod query_executor;
+
+pub mod ontology;
+pub mod reasoner;
 
 pub use ontology::{Ontology, Id, Concept, Entity, AttributeType, AttributeValue};
 pub use reasoner::Reasoner;
