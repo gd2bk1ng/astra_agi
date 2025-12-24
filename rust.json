@@ -1,0 +1,23 @@
+{
+  "Astra File Header": {
+    "prefix": "astraheader",
+    "body": [
+      "// =============================================================================",
+      "//  Astra AGI",
+      "//  File: ${TM_FILENAME}",
+      "//",
+      "//  Description: ${1:Brief description of this file}",
+      "//",
+      "//  Author:      Alex Roussinov",
+      "//  Created:     ${CURRENT_YEAR}-${CURRENT_MONTH}-${CURRENT_DATE}",
+      "//  Updated:     ${CURRENT_YEAR}-${CURRENT_MONTH}-${CURRENT_DATE}",
+      "//",
+      "//  This file is dual licensed under the MIT and Apache 2.0 licenses.",
+      "//  Please see the root level LICENSE-MIT and LICENSE-APACHE files for details.",
+      "// =============================================================================",
+      "",
+      "$0"
+    ],
+    "description": "Insert Astra AGI standardized file header"
+  }
+}
