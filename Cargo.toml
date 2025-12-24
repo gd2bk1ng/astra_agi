@@ -1,3 +1,8 @@
+# Cargo manifest for the Astra AGI runtime crate.
+# This file defines the crate metadata, dependencies, and configuration for building the
+# adaptive runtime of the Astra programming language, focused on evolving artificial
+# general intelligence with moral reasoning and natural interaction capabilities.
+
 [package]
 name = "astra_agi"
 version = "0.1.0"
@@ -15,7 +20,7 @@ keywords = ["AGI", "intent-driven", "runtime", "artificial intelligence", "astra
 categories = ["artificial-intelligence", "runtime"]
 
 [dependencies]
-# Astra language core dependency fetched locally
+# Local path dependency on the Astra language core crate
 astra_lang = { path = "src/interfaces/language/astra_lang" }
 
 [package.metadata.docs.rs]
