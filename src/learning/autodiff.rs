@@ -1,5 +1,5 @@
 // =============================================================================
-//  Astra AGI - Auto Diferentiation Support (AADS)
+//  Astra AGI - Auto DifFerentiation Support (AADS)
 //  File: autodiff.rs
 //
 //  Description: Differentiable programming support
