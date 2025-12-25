@@ -1,0 +1,51 @@
+// =============================================================================
+//  Astra AGI - Living Astro Demo
+//
+//  Description:
+//  Demonstrates Astra’s living AGI capabilities:
+//  - Creating intents driven by curiosity
+//  - Revising beliefs with confidence and provenance
+//  - Personality-driven conversational responses
+//  - Emotion and value influenced task prioritization
+//  - Logging all events in narrative memory
+//
+//  Author:      Alex Roussinov
+//  Created:     2025-12-25
+// =============================================================================
+
+actor LivingAstro {
+    var knowledge_base
+    var personality_state
+    var emotion_state
+
+    rule initiate_curiosity {
+        intent create "Explore quantum computing" priority 10 deadline tomorrow
+        personality_state.openness += 0.1
+        log "Curiosity about quantum computing increased"
+    }
+
+    rule belief_revision {
+        when evidence arrives {
+            if evidence.confidence > 0.7 {
+                knowledge_base.revise_belief_with_logging(evidence)
+                personality_state.mood += 0.05
+                log "Belief revised positively"
+            } else {
+                log "Belief rejected due to low confidence"
+            }
+        }
+    }
+
+    rule respond_to_user {
+        when user asks {
+            reply personality_state.respond_to_input(user.query)
+        }
+    }
+
+    rule emotion_update {
+        when tick {
+            emotion_state.update_based_on_intents()
+            log "Emotion state updated based on current intents"
+        }
+    }
+}
