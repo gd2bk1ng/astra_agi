@@ -78,7 +78,16 @@ impl MetaReasoner {
         self.usage_history.push((paradigm, success));
     }
 
-    /// Returns a human-readable summary of current paradigm weights.
+pub fn update_weights_with_logging(&mut self, paradigm: ReasoningParadigm, success: bool, narrative: &mut NarrativeMemory) {
+    self.update_weights(paradigm, success);
+    narrative.add_event(
+        "paradigm_update",
+        format!("Paradigm {:?} updated with success={}", paradigm, success),
+        None,
+    );
+}
+
+/// Returns a human-readable summary of current paradigm weights.
     pub fn summary(&self) -> String {
         let mut s = String::from("MetaReasoner Paradigm Weights:\n");
         for (paradigm, weight) in &self.paradigm_weights {
