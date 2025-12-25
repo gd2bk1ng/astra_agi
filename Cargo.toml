@@ -41,3 +41,19 @@ clap = { version = "4.0", features = ["derive"] }
 
 [package.metadata.docs.rs]
 all-features = true
+
+# Workspace manifest for Astra AGI project.
+# This file defines the workspace members, allowing unified builds, tests, and dependency
+# resolution across the Astra AGI runtime and the embedded Astra language core crates.
+
+[workspace]
+members = [
+    "src/runtime",
+    "src/knowledge",
+    "src/personality",
+    "src/emotion",
+    "src/memory",
+    "src/planning",
+    "src/learning",
+    "src/interfaces/language/astra_lang"
+]
