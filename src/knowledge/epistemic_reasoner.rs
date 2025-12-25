@@ -5,17 +5,18 @@
 //  Description:
 //  Provides reasoning capabilities over uncertain and conflicting knowledge.
 //  Implements belief revision, confidence updating, and uncertainty management.
-//  Enables Astra to adapt its beliefs based on new evidence and reconcile contradictions.
+//  Extended to log belief revisions and rejections into Narrative Memory,
+//  enabling Astra to reflect on belief changes and knowledge evolution.
 //
 //  Author:      Alex Roussinov
 //  Created:     2025-12-25
-//  Updated:     2025-12-26
 //
 //  This file is dual licensed under the MIT and Apache 2.0 licenses.
 //  Please see the root level LICENSE-MIT and LICENSE-APACHE files for details.
 // =============================================================================
 
 use crate::knowledge::extended_ontology::{Fact, Confidence};
+use crate::memory::narrative_memory::NarrativeMemory;
 use std::collections::HashMap;
 
 /// Represents the result of a belief revision operation.
@@ -25,7 +26,8 @@ pub enum RevisionResult {
 }
 
 /// Epistemic Reasoner struct.
-/// Provides methods to revise beliefs and update confidence scores.
+/// Provides methods to revise beliefs, update confidence scores,
+/// combine conflicting facts, and log changes to narrative memory.
 pub struct EpistemicReasoner {
     /// Optional parameters or configuration for reasoning algorithms.
     pub parameters: HashMap<String, f64>,
@@ -74,15 +76,39 @@ impl EpistemicReasoner {
         RevisionResult::Updated(updated_fact)
     }
 
+    /// Revised belief with logging to narrative memory.
+    ///
+    /// Uses `revise_belief` internally for pure logic,
+    /// then logs the outcome to the provided NarrativeMemory instance.
+    pub fn revise_belief_with_logging(&self, current_fact: &Fact, new_fact: &Fact, narrative: &mut NarrativeMemory) -> RevisionResult {
+        let result = self.revise_belief(current_fact, new_fact);
+        match &result {
+            RevisionResult::Updated(fact) => {
+                narrative.add_event(
+                    "belief_updated",
+                    format!(
+                        "Belief revised: {} {} {} with confidence {:.2}",
+                        fact.subject, fact.predicate, fact.object, fact.confidence
+                    ),
+                    None,
+                );
+            }
+            RevisionResult::Rejected(reason) => {
+                narrative.add_event("belief_rejected", reason.clone(), None);
+            }
+        }
+        result
+    }
+
     /// Combines multiple conflicting facts about the same statement.
     ///
-    /// Uses a simple consensus approach weighted by confidence.
+    /// Uses a simple consensus approach weighted by confidence and recency.
     ///
     /// # Arguments
     /// * `facts` - Slice of facts to combine.
     ///
     /// # Returns
-    /// * A new fact representing the combined belief.
+    /// * A new fact representing the combined belief or None if facts is empty.
     pub fn combine_conflicting_facts(&self, facts: &[Fact]) -> Option<Fact> {
         if facts.is_empty() {
             return None;
