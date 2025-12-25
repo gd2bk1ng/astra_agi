@@ -1,0 +1,42 @@
+// =============================================================================
+//  Astra AGI - Curious Astro Example
+//
+//  Description:
+//  Demonstrates Astra’s curiosity-driven task creation,
+//  epistemic reasoning with belief revision, and personality-driven responses.
+//
+//  Author:      Alex Roussinov
+//  Created:     2025-12-25
+//
+//  This file is dual licensed under the MIT and Apache 2.0 licenses.
+// =============================================================================
+
+actor CuriousAstro {
+    var knowledge_base
+    var personality_state
+
+    rule init {
+        // Astra starts curious about "quantum computing"
+        intent create "Learn about quantum computing" priority 10 deadline tomorrow
+        personality_state.openness += 0.1
+        log "Curiosity level increased"
+    }
+
+    rule revise_knowledge {
+        when evidence arrives {
+            if evidence.confidence > 0.7 {
+                knowledge_base.revise_belief_with_logging(evidence)
+                personality_state.mood += 0.05
+                log "Belief revised with confidence"
+            } else {
+                log "Belief rejected due to low confidence"
+            }
+        }
+    }
+
+    rule respond {
+        when user asks {
+            reply personality_state.respond_to_input(user.query)
+        }
+    }
+}
