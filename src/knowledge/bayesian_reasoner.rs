@@ -3,21 +3,20 @@
 //  File: bayesian_reasoner.rs
 //
 //  Description:
-//  Implements Bayesian Belief Networks for advanced uncertainty modeling.
-//  Enables Astra to represent causal dependencies between facts,
-//  perform probabilistic inference, and update beliefs with new evidence.
+//  Implements Bayesian Belief Networks for advanced uncertainty and causal reasoning.
+//  Enables Astra to perform probabilistic inference and update beliefs with new evidence.
 //
 //  This module advances Astra’s epistemic reasoning beyond simple confidence scores,
 //  providing a mathematically sound framework for uncertainty and causality.
 //
 //  Author:      Alex Roussinov
-//  Created:     2025-01-24
-//  Updated:     2025-01-25
+//  Created:     2025-12-25
+//  Updated:     2025-12-25
 //
 //  This file is dual licensed under the MIT and Apache 2.0 licenses.
 // =============================================================================
 
-use std::collections::{HashMap, HashSet};
+use std::collections::HashMap;
 
 /// Represents a node in the Bayesian Network corresponding to a Fact or variable.
 #[derive(Debug, Clone)]
@@ -41,30 +40,30 @@ pub struct BayesianNetwork {
 }
 
 impl BayesianNetwork {
+    /// Creates a new empty Bayesian Network.
     pub fn new() -> Self {
         BayesianNetwork {
             nodes: HashMap::new(),
         }
     }
 
+    /// Adds a node to the network.
     pub fn add_node(&mut self, node: BBNNode) {
         self.nodes.insert(node.id, node);
     }
 
-    /// Performs simple inference: computes marginal probability of a node being true.
-    /// Note: For demonstration; scalable inference requires more complex algorithms.
+    /// Computes the marginal probability of a node being true.
+    /// Note: Simplified inference assuming parents are true.
     pub fn marginal_probability(&self, node_id: usize) -> Option<f64> {
         let node = self.nodes.get(&node_id)?;
-        // If no parents, return prior probability (parent_states = empty)
         if node.parents.is_empty() {
             return node.cpt.get(&vec![]).cloned();
         }
-        // For simplicity, assume parents are independent and true (demo only)
         let parent_states = vec![true; node.parents.len()];
         Some(node.probability_given(&parent_states))
     }
 
-    /// Updates CPT entries for a node (for learning or evidence incorporation).
+    /// Updates the CPT entry for a node.
     pub fn update_cpt(&mut self, node_id: usize, parent_states: Vec<bool>, prob_true: f64) {
         if let Some(node) = self.nodes.get_mut(&node_id) {
             node.cpt.insert(parent_states, prob_true);
