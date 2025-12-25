@@ -18,6 +18,7 @@ pub mod query;
 pub mod query_executor;
 
 pub mod extended_ontology;
+pub mod epistemic_reasoner;
 
 pub mod ontology;
 pub mod reasoner;
