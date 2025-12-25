@@ -1,0 +1,40 @@
+# =============================================================================
+# Astra AGI - Knowledge Crate
+# File: Cargo.toml
+#
+# Description:
+# Knowledge base and ontology engine for Astra AGI, providing structured
+# representations, inference mechanisms, and learning support.
+#
+# Dual-licensed under MIT OR Apache-2.0.
+# =============================================================================
+
+[package]
+name = "astra_knowledge"
+version = "0.1.0"
+edition = "2021"
+authors = ["Alex Roussinov"]
+license = "MIT OR Apache-2.0"
+description = "Knowledge base, ontology management, and inference engine for Astra AGI."
+repository = "https://github.com/gd2bk1ng/astra_agi/"
+homepage = "https://github.com/gd2bk1ng/astra_agi/"
+readme = "README.md"
+keywords = ["agi", "knowledge", "ontology", "inference"]
+categories = ["ai", "knowledge-management"]
+
+[dependencies]
+serde = { version = "1.0", features = ["derive"] }
+serde_json = "1.0"
+anyhow = "1.0"
+log = "0.4"
+
+# Optional: graph processing, reasoning, or logic engines
+# petgraph = "0.6"
+# horn-clause = "0.3"
+# symbolic = "0.2"
+
+[features]
+default = []
+graph = ["petgraph"]
+logic = []
+full = ["graph", "logic"]
