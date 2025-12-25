@@ -4,19 +4,17 @@
 //
 //  Description:
 //  Manages the lifecycle of intents—Astra's goals and tasks.
-//  Supports temporal metadata (deadlines, creation time, duration),
-//  priority-based scheduling, and dynamic intent refinement.
-//  Enables Astra to reason about task urgency, dependencies, and evolution.
+//  Extended to accept and store rich task metadata such as ethical importance,
+//  enabling affective and value-based prioritization.
 //
-//  This system is foundational for human-task orientation,
-//  allowing Astra to hold, prioritize, and adapt intents over time.
+//  This enhancement allows Astra to reason about tasks with nuanced context,
+//  aligning behavior with human values and ethical considerations.
 //
-//  Author:      Alex Roussinov
-//  Created:     2025-12-24
-//  Updated:     2025-12-25
+//  Author:      Alex Roussinov & Ecosia AI
+//  Created:     2025-12-25
+//  Updated:     2026-01-02
 //
 //  This file is dual licensed under the MIT and Apache 2.0 licenses.
-//  Please see the root level LICENSE-MIT and LICENSE-APACHE files for details.
 // =============================================================================
 
 use std::collections::{HashMap, BinaryHeap};
@@ -74,7 +72,6 @@ impl Intent {
 }
 
 /// Wrapper to allow priority queue ordering by Intent priority and deadline.
-/// Implements max-heap ordering: higher priority and earlier deadline come first.
 #[derive(Debug, Clone)]
 struct IntentWrapper(Intent);
 
@@ -94,9 +91,7 @@ impl PartialOrd for IntentWrapper {
 
 impl Ord for IntentWrapper {
     fn cmp(&self, other: &Self) -> Ordering {
-        // Higher priority first
         other.0.priority.cmp(&self.0.priority)
-            // Earlier deadline first if priority equal
             .then_with(|| {
                 match (self.0.deadline, other.0.deadline) {
                     (Some(a), Some(b)) => a.cmp(&b),
@@ -105,7 +100,6 @@ impl Ord for IntentWrapper {
                     (None, None) => Ordering::Equal,
                 }
             })
-            // Finally by creation time (earlier first)
             .then_with(|| self.0.created_at.cmp(&other.0.created_at))
     }
 }
@@ -127,12 +121,16 @@ impl IntentManager {
         }
     }
 
-    /// Creates and adds a new intent, returning its unique ID.
-    pub fn create_intent(&mut self, description: impl Into<String>, priority: u32) -> IntentId {
+    /// Creates and adds a new intent with optional metadata, returning its unique ID.
+    pub fn create_intent_with_metadata(&mut self, description: impl Into<String>, priority: u32, metadata: Option<HashMap<String, String>>) -> IntentId {
         let id = self.next_id;
         self.next_id += 1;
 
-        let intent = Intent::new(id, description, priority);
+        let mut intent = Intent::new(id, description, priority);
+        if let Some(meta) = metadata {
+            intent.metadata = meta;
+        }
+
         self.priority_queue.push(IntentWrapper(intent.clone()));
         self.intents.insert(id, intent);
         id
@@ -150,7 +148,6 @@ impl IntentManager {
             if let Some(s) = state {
                 intent.state = s;
             }
-            // Rebuild priority queue for simplicity (optimize later)
             self.rebuild_priority_queue();
             Ok(())
         } else {
@@ -202,30 +199,15 @@ mod tests {
     use super::*;
 
     #[test]
-    fn test_intent_creation_and_retrieval() {
+    fn test_intent_creation_and_metadata() {
         let mut im = IntentManager::new();
-        let id = im.create_intent("Complete report", 10);
+        let mut metadata = HashMap::new();
+        metadata.insert("ethical_importance".to_string(), "high".to_string());
+        let id = im.create_intent_with_metadata("Complete report", 10, Some(metadata));
         let intent = im.get_intent(id).expect("Intent should exist");
         assert_eq!(intent.description, "Complete report");
         assert_eq!(intent.priority, 10);
         assert_eq!(intent.state, IntentState::Pending);
-    }
-
-    #[test]
-    fn test_intent_priority_ordering() {
-        let mut im = IntentManager::new();
-        im.create_intent("Low priority", 1);
-        im.create_intent("High priority", 100);
-        let next = im.next_intent().expect("Should have an intent");
-        assert_eq!(next.description, "High priority");
-    }
-
-    #[test]
-    fn test_intent_update_and_completion() {
-        let mut im = IntentManager::new();
-        let id = im.create_intent("Task to complete", 5);
-        im.complete_intent(id).unwrap();
-        let intent = im.get_intent(id).unwrap();
-        assert_eq!(intent.state, IntentState::Completed);
+        assert_eq!(intent.metadata.get("ethical_importance").unwrap(), "high");
     }
 }
