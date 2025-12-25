@@ -8,7 +8,7 @@
 //  Extended to log belief revisions and rejections into Narrative Memory,
 //  enabling Astra to reflect on belief changes and knowledge evolution.
 //
-//  Author:      Alex Roussinov & Ecosia AI
+//  Author:      Alex Roussinov
 //  Created:     2025-12-27
 //  Updated:     2026-01-03
 //
@@ -81,25 +81,25 @@ impl EpistemicReasoner {
     ///
     /// Uses `revise_belief` internally for pure logic,
     /// then logs the outcome to the provided NarrativeMemory instance.
-    pub fn revise_belief_with_logging(&self, current_fact: &Fact, new_fact: &Fact, narrative: &mut NarrativeMemory) -> RevisionResult {
-        let result = self.revise_belief(current_fact, new_fact);
-        match &result {
-            RevisionResult::Updated(fact) => {
-                narrative.add_event(
-                    "belief_updated",
-                    format!(
-                        "Belief revised: {} {} {} with confidence {:.2}",
-                        fact.subject, fact.predicate, fact.object, fact.confidence
-                    ),
-                    None,
-                );
-            }
-            RevisionResult::Rejected(reason) => {
-                narrative.add_event("belief_rejected", reason.clone(), None);
-            }
+pub fn revise_belief_with_logging(&self, current_fact: &Fact, new_fact: &Fact, narrative: &mut NarrativeMemory) -> RevisionResult {
+    let result = self.revise_belief(current_fact, new_fact);
+    match &result {
+        RevisionResult::Updated(fact) => {
+            narrative.add_event(
+                "belief_updated",
+                format!(
+                    "Belief revised: {} {} {} with confidence {:.2}",
+                    fact.subject, fact.predicate, fact.object, fact.confidence
+                ),
+                None,
+            );
         }
-        result
+        RevisionResult::Rejected(reason) => {
+            narrative.add_event("belief_rejected", reason.clone(), None);
+        }
     }
+    result
+}
 
     /// Revised belief with contextual source reliability.
     ///
