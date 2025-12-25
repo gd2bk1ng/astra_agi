@@ -8,8 +8,9 @@
 //  Extended to log belief revisions and rejections into Narrative Memory,
 //  enabling Astra to reflect on belief changes and knowledge evolution.
 //
-//  Author:      Alex Roussinov
-//  Created:     2025-12-25
+//  Author:      Alex Roussinov & Ecosia AI
+//  Created:     2025-12-27
+//  Updated:     2026-01-03
 //
 //  This file is dual licensed under the MIT and Apache 2.0 licenses.
 //  Please see the root level LICENSE-MIT and LICENSE-APACHE files for details.
@@ -98,6 +99,32 @@ impl EpistemicReasoner {
             }
         }
         result
+    }
+
+    /// Revised belief with contextual source reliability.
+    ///
+    /// Adjusts new evidence confidence by source reliability before revision.
+    pub fn revise_belief_contextual(&self, current_fact: &Fact, new_fact: &Fact, source_reliability: f64) -> RevisionResult {
+        let threshold = *self.parameters.get("confidence_threshold").unwrap_or(&0.5);
+
+        let adjusted_confidence = new_fact.confidence as f64 * source_reliability;
+
+        if adjusted_confidence < threshold {
+            return RevisionResult::Rejected(format!(
+                "Adjusted evidence confidence {:.2} below threshold {:.2}",
+                adjusted_confidence, threshold
+            ));
+        }
+
+        let updated_confidence = ((current_fact.confidence as f64) + adjusted_confidence) / 2.0;
+
+        let updated_fact = Fact {
+            confidence: updated_confidence as f32,
+            provenance: new_fact.provenance.clone(),
+            ..current_fact.clone()
+        };
+
+        RevisionResult::Updated(updated_fact)
     }
 
     /// Combines multiple conflicting facts about the same statement.
