@@ -1,0 +1,55 @@
+# =============================================================================
+# Astra AGI - Runtime Crate
+# File: Cargo.toml
+#
+# Description:
+# Core adaptive runtime for Astra AGI, including the main event loop,
+# tick processing, and integration with personality, emotion, memory,
+# and planning subsystems.
+#
+# Dual-licensed under MIT OR Apache-2.0.
+# =============================================================================
+
+[package]
+name = "astra_runtime"
+version = "0.1.0"
+edition = "2021"
+authors = ["Alex Roussinov"]
+license = "MIT OR Apache-2.0"
+description = "Adaptive runtime engine for Astra AGI, coordinating event loops, ticks, and cognitive modules."
+repository = "https://github.com/gd2bk1ng/astra_agi/"
+homepage = "https://github.com/gd2bk1ng/astra_agi/"
+readme = "README.md"
+keywords = ["agi", "runtime", "astra"]
+categories = ["ai", "concurrency", "systems-programming"]
+
+[dependencies]
+# Core Astra language interface
+astra_lang = { path = "../interfaces/language/astra_lang" }
+
+# Common runtime dependencies
+anyhow = "1.0"
+log = "0.4"
+rand = "0.8"
+
+tokio = { version = "1", features = ["macros", "rt-multi-thread", "time", "sync"] }
+
+serde = { version = "1.0", features = ["derive"] }
+serde_json = "1.0"
+
+# Astra subsystem modules
+astra_memory = { path = "../memory", optional = true }
+astra_personality = { path = "../personality", optional = true }
+astra_emotion = { path = "../emotion", optional = true }
+astra_planning = { path = "../planning", optional = true }
+
+[features]
+default = ["memory", "personality", "emotion", "planning"]
+
+memory = ["astra_memory"]
+personality = ["astra_personality"]
+emotion = ["astra_emotion"]
+planning = ["astra_planning"]
+
+# Optional: a "full" feature for convenience
+full = ["memory", "personality", "emotion", "planning"]
