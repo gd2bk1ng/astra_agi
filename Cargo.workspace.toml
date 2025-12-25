@@ -4,6 +4,14 @@
 
 [workspace]
 members = [
-    ".",
-    "src/interfaces/language/astra_lang"
+    ","
+    "src/runtime",
+    "src/knowledge",
+    "src/personality",
+    "src/emotion",
+    "src/memory",
+    "src/planning",
+    "src/learning",
+    "src/interfaces/language/astra_lang",
+    # Add other crates as you modularize them
 ]
