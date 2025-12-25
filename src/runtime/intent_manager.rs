@@ -10,7 +10,7 @@
 //  This enhancement allows Astra to reason about tasks with nuanced context,
 //  aligning behavior with human values and ethical considerations.
 //
-//  Author:      Alex Roussinov & Ecosia AI
+//  Author:      Alex Roussinov
 //  Created:     2025-12-25
 //  Updated:     2026-01-02
 //
