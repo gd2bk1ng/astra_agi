@@ -1,17 +1,22 @@
 // =============================================================================
-//  Astra AGI - External Interfaces Integrations (AEII)
-//  File: mod.rs
+// Astra AGI - Interfaces Module
+// File: mod.rs
 //
-//  Description: External interfaces and integrations
+// Description:
+// Central interface module aggregating submodules for API, NLP, and Voice integration.
+// Provides unified access points for external communication and interaction layers.
 //
 //  Author:      Alex Roussinov
 //  Created:     2025-12-23
 //  Updated:     2025-12-23
 //
-//  //  This file is dual licensed under the MIT and Apache 2.0 licenses.
-//  Please see the root level LICENSE-MIT and LICENSE-APACHE files for details.
+// Licensed under MIT OR Apache 2.0
 // =============================================================================
 
+pub mod api;
 pub mod nlp;
 pub mod voice;
-pub mod api;
+
+pub use api::AstraApi;
+pub use nlp::{NlpProcessor, NlpResult};
+pub use voice::{VoiceInput, VoiceOutput};
