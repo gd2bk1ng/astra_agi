@@ -1,0 +1,29 @@
+# =============================================================================
+# Astra AGI - Personality Crate
+# File: Cargo.toml
+#
+# Description:
+# This crate encapsulates Astra’s personality traits, adaptive behavior,
+# and response generation logic, enabling personalized interaction.
+#
+# Author:      Alex Roussinov
+# Created:     2026-01-25
+# Updated:     2026-01-26
+#
+# Licensed under MIT OR Apache-2.0
+# =============================================================================
+
+[package]
+name = "astra_personality"
+version = "0.1.0"
+edition = "2021"
+
+[dependencies]
+serde = { version = "1.0", features = ["derive"] }
+serde_json = "1.0"
+rand = "0.8"
+anyhow = "1.0"
+log = "0.4"
+
+[features]
+default = []
