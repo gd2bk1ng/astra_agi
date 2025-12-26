@@ -1,0 +1,27 @@
+# =============================================================================
+# Astra AGI - Planning Crate
+# File: Cargo.toml
+#
+# Description:
+# This crate implements planning algorithms, goal management,
+# and decision-making logic for Astra AGI.
+#
+# Author:      Alex Roussinov
+# Created:     2025-12-25
+# Updated:     2025-12-26
+#
+# Licensed under MIT OR Apache-2.0
+# =============================================================================
+
+[package]
+name = "astra_planning"
+version = "0.1.0"
+edition = "2021"
+
+[dependencies]
+anyhow = "1.0"
+serde = { version = "1.0", features = ["derive"] }
+log = "0.4"
+
+[features]
+default = []
