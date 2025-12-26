@@ -22,6 +22,7 @@ homepage = "https://github.com/gd2bk1ng/astra_agi/"
 readme = "README.md"
 keywords = ["agi", "runtime", "astra"]
 categories = ["ai", "concurrency", "systems-programming"]
+documentation = "https://docs.rs/astra_runtime"
 
 [dependencies]
 # Core Astra language interface
