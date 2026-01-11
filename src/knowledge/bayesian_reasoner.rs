@@ -1,20 +1,30 @@
-// =============================================================================
-//  Astra AGI - Bayesian Epistemic Reasoner (BBN)
-//  File: bayesian_reasoner.rs
+// ============================================================================
+//                ASTRA AGI • BAYESIAN EPISTEMIC REASONER (BBN)
+//        Probabilistic Inference & Causal Reasoning Through Belief Networks
+// ---------------------------------------------------------------------------
+//   Architectural Role:
+//       Core component of Astra’s Knowledge Layer, providing a Bayesian Belief
+//       Network (BBN) framework for probabilistic reasoning, causal modeling,
+//       and uncertainty evaluation. This module enables Astra to update beliefs
+//       dynamically as new evidence arrives, supporting mathematically grounded
+//       epistemic inference beyond simple confidence scoring.
 //
-//  Description:
-//  Implements Bayesian Belief Networks for advanced uncertainty and causal reasoning.
-//  Enables Astra to perform probabilistic inference and update beliefs with new evidence.
+//   Core Functions:
+//       • Represent variables and causal dependencies as Bayesian nodes
+//       • Evaluate conditional and marginal probabilities
+//       • Update beliefs through evidence incorporation
+//       • Support probabilistic reasoning across structured knowledge graphs
+//       • Provide foundational primitives for higher‑level epistemic modules
 //
-//  This module advances Astra’s epistemic reasoning beyond simple confidence scores,
-//  providing a mathematically sound framework for uncertainty and causality.
+//   File:        /src/knowledge/bayesian_reasoner.rs
+//   Author:      Alex Roussinov
+//   Created:     2025-12-25
+//   Updated:     2026-01-11
 //
-//  Author:      Alex Roussinov
-//  Created:     2025-12-25
-//  Updated:     2025-12-25
-//
-//  This file is dual licensed under the MIT and Apache 2.0 licenses.
-// =============================================================================
+//   License:
+//       Dual-licensed under the MIT and Apache 2.0 licenses.
+//       See LICENSE-MIT and LICENSE-APACHE in the repository root for details.
+// ============================================================================
 
 use std::collections::HashMap;
 
