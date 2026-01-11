@@ -1,21 +1,31 @@
-// =============================================================================
-//  Astra AGI - Extended Ontology Module (EOM)
-//  File: extended_ontology.rs
+// ============================================================================
+//                ASTRA AGI • EXTENDED ONTOLOGY MODULE (EOM)
+//      Dynamic, Versioned Knowledge Graph with Contextual & Epistemic Metadata
+// ---------------------------------------------------------------------------
+//   Architectural Role:
+//       Core component of Astra’s Knowledge Layer, providing a flexible,
+//       evolving ontology capable of representing structured facts along with
+//       their confidence, provenance, and contextual relevance. This module
+//       enables Astra to maintain a living knowledge base that supports
+//       branching versions, contextual views, and epistemic reasoning across
+//       time and perspectives.
 //
-//  Description:
-//  Provides a dynamic and versioned ontology core with contextual and epistemic metadata.
-//  Enables Astra to represent evolving knowledge, handle multiple perspectives,
-//  and reason about the certainty and provenance of facts.
+//   Core Functions:
+//       • Represent entities, facts, provenance, and confidence levels
+//       • Maintain versioned ontology snapshots with lineage tracking
+//       • Support contextualized fact activation for user‑ or environment‑specific views
+//       • Provide APIs for querying, updating, and branching ontology states
+//       • Serve as the semantic backbone for reasoning, memory, and inference
 //
-//  This module supports Astra's living knowledge base, essential for adaptive reasoning.
+//   File:        /src/knowledge/extended_ontology.rs
+//   Author:      Alex Roussinov
+//   Created:     2025-12-26
+//   Updated:     2026-01-11
 //
-//  Author:      Alex Roussinov
-//  Created:     2025-12-26
-//  Updated:     2025-12-26
-//
-//  This file is dual licensed under the MIT and Apache 2.0 licenses.
-//  Please see the root level LICENSE-MIT and LICENSE-APACHE files for details.
-// =============================================================================
+//   License:
+//       Dual-licensed under the MIT and Apache 2.0 licenses.
+//       See LICENSE-MIT and LICENSE-APACHE in the repository root for details.
+// ============================================================================
 
 use std::collections::{HashMap, HashSet};
 use std::time::{SystemTime, UNIX_EPOCH};
