@@ -1,15 +1,29 @@
-// =============================================================================
-//  Astra AGI
-//  File: astra_agi\src\knowledge\storage.rs
+// ============================================================================
+//                        ASTRA AGI • STORAGE ABSTRACTION LAYER
+//        Persistent Key‑Value Backend for Ontology & Knowledge Structures
+// ---------------------------------------------------------------------------
+//   Architectural Role:
+//       Component of Astra’s Knowledge Layer, providing a clean abstraction
+//       over persistent storage for ontology state, indexes, and metadata.
+//       This module decouples the ontology logic from the underlying database
+//       engine, enabling flexible backends while offering a robust default
+//       implementation using the sled embedded key‑value store.
 //
-//  Description: Abstracts persistent storage for Ontology using sled key-value store.
+//   Core Functions:
+//       • Define a generic Storage trait for save/load operations
+//       • Provide a sled‑based implementation with automatic persistence
+//       • Support binary serialization of ontology state for durability
+//       • Serve as the persistence backbone for the Knowledge subsystem
 //
-//  Author:      Alex Roussinov
-//  Created:     2025-12-26
-//  Updated:     2025-12-26
+//   File:        /src/knowledge/storage.rs
+//   Author:      Alex Roussinov
+//   Created:     2025-12-26
+//   Updated:     2026-01-11
 //
-//  This file is dual licensed under the MIT and Apache 2.0 licenses.
-// =============================================================================
+//   License:
+//       Dual-licensed under the MIT and Apache 2.0 licenses.
+//       See LICENSE-MIT and LICENSE-APACHE in the repository root for details.
+// ============================================================================
 
 use sled::{Db, IVec};
 use std::path::Path;
