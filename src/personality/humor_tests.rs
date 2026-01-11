@@ -1,11 +1,29 @@
-// =============================================================================
-//  Astra AGI - Personality Humor Module Tests
-//  File: humor_tests.rs
+// ============================================================================
+//                 ASTRA AGI • PERSONALITY HUMOR MODULE TESTS
+//        Validation of Humor Styles, Emotional Modulation & Responses
+// ----------------------------------------------------------------------------
+//   Architectural Role:
+//       Provides unit tests for Astra’s humor generation subsystem. These tests
+//       verify that humor style selection adapts to personality traits and
+//       emotional state, ensure joke generation produces meaningful output,
+//       and confirm that personality‑driven responses behave consistently with
+//       humor triggers and conversational context.
 //
-//  Author:      Alex Roussinov
-//  Created:     2026-01-15
-//  Updated:     2026-01-15
-// =============================================================================
+//   Core Test Coverage:
+//       • Humor style selection based on traits and emotion
+//       • Joke generation producing non‑empty output
+//       • Personality responding with humor when triggered
+//       • Personality responding normally without humor triggers
+//
+//   File:        /src/personality/humor_tests.rs
+//   Author:      Alex Roussinov
+//   Created:     2025-12-25
+//   Updated:     2026-01-11
+//
+//   License:
+//       Dual-licensed under the MIT and Apache 2.0 licenses.
+//       See LICENSE-MIT and LICENSE-APACHE in the repository root for details.
+// ============================================================================
 
 #[cfg(test)]
 mod tests {
