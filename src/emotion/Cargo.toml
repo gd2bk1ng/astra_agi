@@ -1,17 +1,22 @@
-# =============================================================================
-# Astra AGI - Emotion Crate
-# File: Cargo.toml
+# ============================================================================
+#                           ASTRA AGI • EMOTION MODULE
+#                 Affective State Modeling & Cognitive Influence
+# ---------------------------------------------------------------------------
+#   Purpose:
+#       Defines the Emotion crate for Astra AGI. This module encapsulates the
+#       system’s affective architecture — emotional state representation,
+#       dynamic transitions, modulation effects on reasoning, and personality
+#       shaping. Supports affective computing and adaptive behavioral tuning.
 #
-# Description:
-# This crate models Astra’s emotional state, dynamics, and influence on reasoning
-# and personality, supporting affective computing.
+#   File:        /src/emotion/Cargo.toml
+#   Author:      Alex Roussinov
+#   Created:     2025-12-25
+#   Updated:     2026-01-11
 #
-# Author:      Alex Roussinov
-# Created:     2025-12-25
-# Updated:     2025-12-25
-#
-# Licensed under MIT OR Apache-2.0
-# =============================================================================
+#  License:
+#      Dual-licensed under the MIT and Apache 2.0 licenses.
+#      See LICENSE-MIT and LICENSE-APACHE in the repository root for details.
+# ============================================================================
 
 [package]
 name = "astra_emotion"
