@@ -1,16 +1,29 @@
-// =============================================================================
-//  Astra AGI
-//  File: astra_agi\src\knowledge\query.rs
+// ============================================================================
+//                        ASTRA AGI • QUERY DSL MODULE
+//        Expressive Logical Query Language for Ontology Exploration
+// ---------------------------------------------------------------------------
+//   Architectural Role:
+//       Component of Astra’s Knowledge Layer, providing a domain‑specific
+//       language (DSL) for constructing expressive, composable logical queries
+//       over the ontology. This module enables structured filtering, concept
+//       matching, attribute comparisons, and logical composition, forming the
+//       foundation for high‑level semantic search and reasoning.
 //
-//  Description: Query DSL for ontology - supports expressive logical queries.
+//   Core Functions:
+//       • Define logical, comparison, and attribute‑based query primitives
+//       • Support nested AND/OR/NOT expressions for complex filtering
+//       • Enable concept‑based and attribute‑based entity selection
+//       • Serve as the query representation consumed by the Query Executor
 //
-//  Author:      Alex Roussinov
-//  Created:     2025-12-25
-//  Updated:     2025-12-25
+//   File:        /src/knowledge/query.rs
+//   Author:      Alex Roussinov
+//   Created:     2025-12-25
+//   Updated:     2026-01-11
 //
-//  This file is dual licensed under the MIT and Apache 2.0 licenses.
-//  Please see the root level LICENSE-MIT and LICENSE-APACHE files for details.
-// =============================================================================
+//   License:
+//       Dual-licensed under the MIT and Apache 2.0 licenses.
+//       See LICENSE-MIT and LICENSE-APACHE in the repository root for details.
+// ============================================================================
 
 use crate::knowledge::{AttributeValue, Id};
 
