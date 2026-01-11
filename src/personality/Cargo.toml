@@ -1,17 +1,28 @@
-# =============================================================================
-# Astra AGI - Personality Crate
-# File: Cargo.toml
+# ============================================================================
+#                         ASTRA AGI • PERSONALITY CRATE
+#        Adaptive Traits, Behavioral Modulation & Interaction Style Engine
+# ----------------------------------------------------------------------------
+#   Architectural Role:
+#       Defines Astra’s personality layer, including adaptive behavioral traits,
+#       stylistic response generation, and individualized interaction logic.
+#       This crate governs how Astra expresses herself, modulates tone, and
+#       maintains consistent persona dynamics across conversations.
 #
-# Description:
-# This crate encapsulates Astra’s personality traits, adaptive behavior,
-# and response generation logic, enabling personalized interaction.
+#   Core Functions:
+#       • Represent and manage personality traits
+#       • Generate adaptive, context‑aware responses
+#       • Support behavioral modulation and stylistic tuning
+#       • Provide a foundation for long‑term persona consistency
 #
-# Author:      Alex Roussinov
-# Created:     2026-01-25
-# Updated:     2026-01-26
+#   File:        /src/personality/Cargo.toml
+#   Author:      Alex Roussinov
+#   Created:     2025-12-25
+#   Updated:     2026-01-11
 #
-# Licensed under MIT OR Apache-2.0
-# =============================================================================
+#   License:
+#       Dual-licensed under the MIT and Apache 2.0 licenses.
+#       See LICENSE-MIT and LICENSE-APACHE in the repository root for details.
+# ============================================================================
 
 [package]
 name = "astra_personality"
