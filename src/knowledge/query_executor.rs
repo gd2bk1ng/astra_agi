@@ -1,16 +1,30 @@
-// =============================================================================
-//  Astra AGI
-//  File: astra_agi\src\knowledge\query_executor.rs
+// ============================================================================
+//                        ASTRA AGI • QUERY EXECUTION ENGINE
+//        Logical Evaluation & Entity Retrieval over the Knowledge Ontology
+// ---------------------------------------------------------------------------
+//   Architectural Role:
+//       Component of Astra’s Knowledge Layer, responsible for executing the
+//       Query DSL against the ontology. This module evaluates logical
+//       expressions, attribute filters, concept constraints, and negations to
+//       produce precise sets of matching entities. It forms the operational
+//       backbone of Astra’s semantic search and structured knowledge retrieval.
 //
-//  Description: Executes QueryExpr against Ontology to retrieve matching entities.
+//   Core Functions:
+//       • Execute QueryExpr trees (Concept, AttrFilter, Logical, Not)
+//       • Support AND/OR/NOT logical composition across sub‑queries
+//       • Perform attribute‑level comparisons with typed operators
+//       • Integrate with ontology indexes for efficient entity filtering
+//       • Provide the evaluation layer consumed by higher‑level reasoning
 //
-//  Author:      Alex Roussinov
-//  Created:     2025-12-25
-//  Updated:     2025-12-25
+//   File:        /src/knowledge/query_executor.rs
+//   Author:      Alex Roussinov
+//   Created:     2025-12-25
+//   Updated:     2026-01-11
 //
-//  This file is dual licensed under the MIT and Apache 2.0 licenses.
-//  Please see the root level LICENSE-MIT and LICENSE-APACHE files for details.
-// =============================================================================
+//   License:
+//       Dual-licensed under the MIT and Apache 2.0 licenses.
+//       See LICENSE-MIT and LICENSE-APACHE in the repository root for details.
+// ============================================================================
 
 use crate::knowledge::{Ontology, QueryExpr, LogicalOp, ComparisonOp, AttributeFilter, AttributeValue, Id};
 
