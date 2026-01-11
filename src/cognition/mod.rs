@@ -34,6 +34,8 @@ pub mod thought_trace;
 pub mod cognitive_loop;
 pub mod consolidation;
 pub mod mindspace;
+pub mod episodes;
+pub mod learning_adapter;
 
 pub use cognitive_state::*;
 pub use goal_formation::*;
@@ -44,3 +46,5 @@ pub use thought_trace::*;
 pub use cognitive_loop::*;
 pub use consolidation::*;
 pub use mindspace::*;
+pub use episodes::*;
+pub use learning_adapter::*;
