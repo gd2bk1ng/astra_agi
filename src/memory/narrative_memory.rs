@@ -1,19 +1,31 @@
-// =============================================================================
-//  Astra AGI - Narrative Memory System (NMS)
-//  File: narrative_memory.rs
+// ============================================================================
+//                 ASTRA AGI • NARRATIVE MEMORY SYSTEM (NMS)
+//        Persistent Identity, Experiential Recall & Self‑Reflective Context
+// ----------------------------------------------------------------------------
+//   Architectural Role:
+//       Implements Astra’s long‑term narrative memory, enabling the system to
+//       maintain a persistent sense of identity, recall past experiences, and
+//       construct coherent self‑stories. This module supports introspection,
+//       trust‑building, contextual continuity, and learning from prior actions.
+//       It forms the backbone of Astra’s autobiographical and experiential memory.
 //
-//  Description:
-//  Stores Astra's persistent identity and experiential narrative.
-//  Enables coherent self-storytelling, memory recall, and learning from past actions.
-//  Facilitates empathy, trust-building, and continuous self-reflection.
+//   Core Functions:
+//       • Store chronologically ordered narrative events
+//       • Maintain persistent identity through experiential continuity
+//       • Support retrieval of recent or context‑relevant memories
+//       • Enable reflective reasoning and self‑storytelling
+//       • Provide structured metadata for advanced cognitive processing
 //
-//  Author:      Alex Roussinov
-//  Created:     2025-12-25
-//  Updated:     2025-12-25
+//   File:        /src/memory/narrative_memory.rs
+//   Author:      Alex Roussinov
+//   Created:     2025-12-25
+//   Updated:     2026-01-11
 //
-//  This file is dual licensed under the MIT and Apache 2.0 licenses.
-//  Please see the root level LICENSE-MIT and LICENSE-APACHE files for details.
-// =============================================================================
+//   License:
+//       Dual-licensed under the MIT and Apache 2.0 licenses.
+//       See LICENSE-MIT and LICENSE-APACHE in the repository root for details.
+// ============================================================================
+
 
 use std::collections::VecDeque;
 use std::time::{SystemTime, UNIX_EPOCH};
