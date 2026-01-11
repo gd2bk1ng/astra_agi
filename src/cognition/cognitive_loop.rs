@@ -24,12 +24,17 @@
 
 use anyhow::Result;
 use log::{info, warn};
+use std::sync::Arc;
+use tokio::sync::Mutex;
 
 use crate::cognition::{
     build_self_summary, generate_goals_from_stimulus, select_primary_goal,
     update_curiosity, CognitiveState, ThoughtTrace,
 };
-use crate::planning::executor::{ActionExecutor, PlanExecutor};
+use crate::cognition::episodes::record_episode;
+use crate::cognition::learning_adapter::LearningAdapter;
+
+use crate::planning::executor::{ActionExecutor, PlanExecutor, ExecutionStatus};
 use crate::planning::planner::{Planner, WorldState};
 use crate::cognition::motivation::{evaluate_goal_motivation, update_energy_after_outcome};
 use crate::cognition::goal_formation::Stimulus;
@@ -40,32 +45,46 @@ pub trait WorldStateProvider {
 }
 
 /// High-level cognitive loop driver.
-pub struct CognitiveLoop<E: ActionExecutor, W: WorldStateProvider> {
-    pub state: CognitiveState,
+pub struct CognitiveLoop<E: ActionExecutor, W: WorldStateProvider, L: LearningAdapter> {
+    pub state: Arc<Mutex<CognitiveState>>,
     planner: Planner,
     env_executor: E,
     world_provider: W,
+    learner: L,
 }
 
-impl<E: ActionExecutor, W: WorldStateProvider> CognitiveLoop<E, W> {
-    pub fn new(state: CognitiveState, env_executor: E, world_provider: W) -> Self {
+impl<E, W, L> CognitiveLoop<E, W, L>
+where
+    E: ActionExecutor,
+    W: WorldStateProvider,
+    L: LearningAdapter,
+{
+    pub fn new(
+        state: Arc<Mutex<CognitiveState>>,
+        env_executor: E,
+        world_provider: W,
+        learner: L,
+    ) -> Self {
         Self {
             state,
             planner: Planner::new(),
             env_executor,
             world_provider,
+            learner,
         }
     }
 
     /// Runs a single cognitive cycle reacting to an input stimulus.
-    pub fn step(&mut self, stimulus: Stimulus) -> Result<()> {
+    pub async fn step(&mut self, stimulus: Stimulus) -> Result<()> {
+        let mut state = self.state.lock().await;
+
         // 1. Update curiosity based on novelty (placeholder heuristic).
         let novelty_score = 0.7; // TODO: derive from learning/perception
-        update_curiosity(&mut self.state, novelty_score);
+        update_curiosity(&mut state, novelty_score);
 
         // 2. Goal formation.
-        let candidate_goals = generate_goals_from_stimulus(&self.state, &stimulus);
-        let primary = match select_primary_goal(&self.state, &candidate_goals) {
+        let candidate_goals = generate_goals_from_stimulus(&state, &stimulus);
+        let primary = match select_primary_goal(&state, &candidate_goals) {
             Some(g) => g,
             None => {
                 info!("No primary goal selected for stimulus '{}'", stimulus.content);
@@ -73,12 +92,12 @@ impl<E: ActionExecutor, W: WorldStateProvider> CognitiveLoop<E, W> {
             }
         };
 
-        let motivation_score = evaluate_goal_motivation(&self.state, &primary);
+        let motivation_score = evaluate_goal_motivation(&state, &primary);
         info!(
             "Selected goal '{}' with motivation score {:.3}",
             primary.id, motivation_score
         );
-        self.state.context.active_goal = Some(primary.clone());
+        state.context.active_goal = Some(primary.clone());
 
         // 3. Planning.
         let world = self.world_provider.current_world_state();
@@ -92,9 +111,9 @@ impl<E: ActionExecutor, W: WorldStateProvider> CognitiveLoop<E, W> {
             return Ok(());
         }
 
-        self.state.context.active_plan = Some(plan.clone());
+        state.context.active_plan = Some(plan.clone());
 
-        // 4. Thought trace (simple example).
+        // 4. Thought trace.
         let mut trace = ThoughtTrace::new(&primary.id);
         trace.add_step(
             format!("Selected goal '{}' based on stimulus '{}'", primary.id, stimulus.content),
@@ -108,16 +127,19 @@ impl<E: ActionExecutor, W: WorldStateProvider> CognitiveLoop<E, W> {
         // 5. Execution.
         let mut executor = PlanExecutor::new(plan.clone(), &mut self.env_executor);
         let status = executor.run_to_completion()?;
-        let success = matches!(status, crate::planning::executor::ExecutionStatus::Completed);
+        let success = matches!(status, ExecutionStatus::Completed);
 
-        update_energy_after_outcome(&mut self.state.energy, success);
+        update_energy_after_outcome(&mut state.energy, success);
 
         // 6. Self-summary (for logging / introspection).
-        let summary = build_self_summary(&self.state);
+        let summary = build_self_summary(&state);
         info!("Self-summary: {}", summary.explanation);
 
-        // TODO: 7. Write episode + thought trace to Narrative Memory & Learning.
-        // TODO: integrate with reflection loop and meta-learning.
+        // 7. Write episode + thought trace to Narrative Memory.
+        record_episode(&state, &trace, success);
+
+        // 8. Learning adapter hook.
+        self.learner.update_from_episode(&state, &trace, success);
 
         Ok(())
     }
