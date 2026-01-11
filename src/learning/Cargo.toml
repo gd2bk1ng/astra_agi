@@ -1,17 +1,29 @@
-# =============================================================================
-# Astra AGI - Learning Crate
-# File: Cargo.toml
+# ============================================================================
+#                         ASTRA AGI • LEARNING CRATE
+#        Adaptive Learning, Autodiff, Reinforcement Learning & Training Core
+# ----------------------------------------------------------------------------
+#   Architectural Role:
+#       This crate implements Astra’s foundational learning capabilities,
+#       including autodifferentiation, reinforcement learning, stochastic
+#       optimization, and model‑training utilities. It forms the computational
+#       backbone for systems that adapt, generalize, and refine themselves
+#       over time.
 #
-# Description:
-# Implements adaptive learning algorithms including autodifferentiation,
-# reinforcement learning, and model training for Astra AGI.
+#   Core Functions:
+#       • Autodiff and gradient‑based optimization
+#       • Reinforcement learning primitives and training loops
+#       • Model evaluation, sampling, and update routines
+#       • Asynchronous training pipelines using Tokio
 #
-# Author:      Alex Roussinov
-# Created:     2025-12-25
-# Updated:     2025-12-26
+#   File:        /src/learning/Cargo.toml
+#   Author:      Alex Roussinov
+#   Created:     2025-12-25
+#   Updated:     2026-01-11
 #
-# Licensed under MIT OR Apache 2.0
-# =============================================================================
+# License:
+#      Dual-licensed under the MIT and Apache 2.0 licenses.
+#      See LICENSE-MIT and LICENSE-APACHE in the repository root for details.
+# ============================================================================
 
 [package]
 name = "astra_learning"
