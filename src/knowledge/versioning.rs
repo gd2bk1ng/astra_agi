@@ -1,15 +1,29 @@
-// =============================================================================
-//  Astra AGI
-//  File: astra_agi\src\knowledge\versioning.rs
+// ============================================================================
+//                     ASTRA AGI • ONTOLOGY VERSIONING MODULE
+//        Snapshot Tracking, Change History & Knowledge Evolution Metadata
+// ---------------------------------------------------------------------------
+//   Architectural Role:
+//       Component of Astra’s Knowledge Layer, responsible for maintaining a
+//       chronological record of ontology evolution. This module captures
+//       versioned snapshots, descriptive metadata, and structured change logs,
+//       enabling rollback, auditing, temporal reasoning, and historical
+//       introspection across Astra’s dynamic knowledge base.
 //
-//  Description: Tracks versions and changes to Ontology data.
+//   Core Functions:
+//       • Create immutable version snapshots with timestamps and descriptions
+//       • Record structured change metadata for each version
+//       • Retrieve specific versions or the latest snapshot
+//       • Support higher‑level reasoning about ontology evolution over time
 //
-//  Author:      Alex Roussinov
-//  Created:     2025-12-26
-//  Updated:     2025-12-26
+//   File:        /src/knowledge/versioning.rs
+//   Author:      Alex Roussinov
+//   Created:     2025-12-26
+//   Updated:     2026-01-11
 //
-//  This file is dual licensed under the MIT and Apache 2.0 licenses.
-// =============================================================================
+//   License:
+//       Dual-licensed under the MIT and Apache 2.0 licenses.
+//       See LICENSE-MIT and LICENSE-APACHE in the repository root for details.
+// ============================================================================
 
 use std::collections::HashMap;
 use chrono::{DateTime, Utc};
