@@ -1,17 +1,29 @@
-// =============================================================================
-//  Astra AGI - Fuzzy Logic Reasoner
-//  File: fuzzy_reasoner.rs
+// ============================================================================
+//                     ASTRA AGI • FUZZY LOGIC REASONER
+//        Graded Truth Evaluation for Vagueness & Partial Information
+// ---------------------------------------------------------------------------
+//   Architectural Role:
+//       Component of Astra’s Knowledge Layer, providing fuzzy logic operations
+//       for reasoning under vagueness, ambiguity, and partial truth values.
+//       This module complements Bayesian inference by enabling graded truth
+//       evaluation, linguistic variables, and smooth transitions between
+//       certainty levels—critical for real‑world, imprecise knowledge domains.
 //
-//  Description:
-//  Implements fuzzy logic for reasoning with vagueness and partial truths.
-//  Complements Bayesian reasoning by allowing graded truth values and linguistic variables.
+//   Core Functions:
+//       • Compute fuzzy AND, OR, and NOT operations
+//       • Support fuzzy implication for rule‑based reasoning
+//       • Provide continuous truth‑value handling beyond binary logic
+//       • Integrate with probabilistic and epistemic reasoning pipelines
 //
-//  Author:      Alex Roussinov
-//  Created:     2025-12-25
-//  Updated:     2025-12-25
+//   File:        /src/knowledge/fuzzy_reasoner.rs
+//   Author:      Alex Roussinov
+//   Created:     2025-12-25
+//   Updated:     2026-01-11
 //
-//  This file is dual licensed under the MIT and Apache 2.0 licenses.
-// =============================================================================
+//   License:
+//       Dual-licensed under the MIT and Apache 2.0 licenses.
+//       See LICENSE-MIT and LICENSE-APACHE in the repository root for details.
+// ============================================================================
 
 pub struct FuzzyLogic;
 
