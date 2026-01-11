@@ -1,17 +1,28 @@
-// =============================================================================
-// Astra AGI - Natural Language Processing Interface
-// File: nlp.rs
+// ============================================================================
+//                   ASTRA AGI • NATURAL LANGUAGE INTERFACE
+//              Semantic Understanding & Intent Interpretation Layer
+// ---------------------------------------------------------------------------
+//   Architectural Role:
+//       Core component of Astra’s Interfaces Layer, responsible for converting
+//       raw user input into structured cognitive signals. This module provides
+//       semantic parsing, intent recognition, and entity extraction, enabling
+//       Astra to interpret human language with contextual and operational depth.
 //
-// Description:
-// Provides NLP processing capabilities including intent recognition,
-// entity extraction, and semantic analysis for Astra AGI interactions.
+//   Core Functions:
+//       • Detect user intent across commands, queries, and conversational input
+//       • Extract entities, parameters, and contextual markers from text
+//       • Perform semantic analysis to map language into cognitive actions
+//       • Serve as the linguistic bridge between external input and reasoning
 //
-//  Author:      Alex Roussinov
-//  Created:     2025-12-23
-//  Updated:     2025-12-26
+//   File:        /src/interfaces/nlp.rs
+//   Author:      Alex Roussinov
+//   Created:     2025-12-23
+//   Updated:     2026-01-11
 //
-// Licensed under MIT OR Apache 2.0
-// =============================================================================
+//   License:
+//       Dual-licensed under the MIT and Apache 2.0 licenses.
+//       See LICENSE-MIT and LICENSE-APACHE in the repository root for details.
+// ============================================================================
 
 use anyhow::Result;
 use serde::{Deserialize, Serialize};
