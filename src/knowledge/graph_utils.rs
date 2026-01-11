@@ -1,15 +1,29 @@
-// =============================================================================
-//  Astra AGI
-//  File: astra_agi\src\knowledge\graph_utils.rs
+// ============================================================================
+//                     ASTRA AGI • ONTOLOGY GRAPH UTILITIES
+//        Traversal, Connectivity & Pathfinding for Knowledge Relationships
+// ---------------------------------------------------------------------------
+//   Architectural Role:
+//       Component of Astra’s Knowledge Layer, providing graph‑based algorithms
+//       for navigating ontology structures. This module enables efficient
+//       traversal, neighborhood exploration, and shortest‑path discovery across
+//       entity relationships, supporting reasoning, querying, and structural
+//       analysis of the knowledge graph.
 //
-//  Description: Graph traversal and algorithms for Ontology relationships.
+//   Core Functions:
+//       • Breadth‑first search (BFS) traversal with depth limiting
+//       • Shortest‑path computation between ontology entities
+//       • Utility algorithms for exploring adjacency relationships
+//       • Foundational graph operations used by higher‑level reasoning modules
 //
-//  Author:      Alex Roussinov
-//  Created:     2025-12-26
-//  Updated:     2025-12-26
+//   File:        /src/knowledge/graph_utils.rs
+//   Author:      Alex Roussinov
+//   Created:     2025-12-26
+//   Updated:     2026-01-11
 //
-//  This file is dual licensed under the MIT and Apache 2.0 licenses.
-// =============================================================================
+//   License:
+//       Dual-licensed under the MIT and Apache 2.0 licenses.
+//       See LICENSE-MIT and LICENSE-APACHE in the repository root for details.
+// ============================================================================
 
 use crate::knowledge::{Ontology, Id};
 use std::collections::{VecDeque, HashSet};
