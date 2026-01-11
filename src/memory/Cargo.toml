@@ -1,28 +1,42 @@
-# =============================================================================
-# Astra AGI - Memory Crate
-# File: Cargo.toml
+# ============================================================================
+#                           ASTRA AGI • MEMORY CRATE
+#        Long‑Term Storage, Retrieval, and Cognitive State Persistence
+# ----------------------------------------------------------------------------
+#   Architectural Role:
+#       Provides Astra’s foundational memory infrastructure, enabling persistent
+#       storage, retrieval, consolidation, and transformation of cognitive
+#       artifacts. This crate supports episodic memory, semantic memory,
+#       vector‑based recall, and future hybrid memory architectures.
 #
-# Description:
-# This crate manages Astra’s narrative memory, episodic storage,
-# and retrieval mechanisms for long-term learning and reflection.
+#   Core Functions:
+#       • Manage structured memory representations
+#       • Provide fast retrieval and embedding‑based lookup
+#       • Support consolidation and pruning routines
+#       • Serve as the persistence layer for Astra’s cognitive runtime
 #
-# Author:      Alex Roussinov
-# Created:     2025-12-25
-# Updated:     2025-12-25
+#   File:        /src/memory/Cargo.toml
+#   Author:      Alex Roussinov
+#   Created:     2026-01-11
+#   Updated:     2026-01-11
 #
-# Licensed under MIT OR Apache-2.0
-# =============================================================================
+#   License:
+#       Dual-licensed under the MIT and Apache 2.0 licenses.
+#       See LICENSE-MIT and LICENSE-APACHE in the repository root for details.
+# ============================================================================
 
 [package]
 name = "astra_memory"
 version = "0.1.0"
 edition = "2021"
+documentation = "https://docs.rs/astra_memory"
 
 [dependencies]
 serde = { version = "1.0", features = ["derive"] }
 serde_json = "1.0"
 anyhow = "1.0"
 log = "0.4"
+tokio = { version = "1", features = ["macros", "rt-multi-thread"] }
+rand = "0.8"
 
 [features]
 default = []
