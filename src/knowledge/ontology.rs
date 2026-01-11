@@ -1,16 +1,30 @@
-// =============================================================================
-//  Astra AGI
-//  File: astra_agi\src\knowledge\ontology.rs
+// ============================================================================
+//                        ASTRA AGI • ONTOLOGY CORE MODULE
+//        Concepts, Entities, Relationships & Indexed Knowledge Structures
+// ---------------------------------------------------------------------------
+//   Architectural Role:
+//       Foundational component of Astra’s Knowledge Layer, responsible for
+//       representing structured semantic information through concepts,
+//       entities, attributes, and typed relationships. This module provides
+//       indexing, adjacency mapping, and persistent storage integration,
+//       forming the backbone of Astra’s symbolic knowledge graph.
 //
-//  Description: Defines concepts, entities, relationships, and adds indexing and graph adjacency.
+//   Core Functions:
+//       • Define concepts, entities, attributes, and relationship types
+//       • Maintain indexed lookup tables for fast attribute‑based queries
+//       • Track graph adjacency for relationship traversal and reasoning
+//       • Provide persistent storage support for ontology state
+//       • Serve as the primary data model for higher‑level reasoning modules
 //
-//  Author:      Alex Roussinov
-//  Created:     2025-12-23
-//  Updated:     2025-12-26
+//   File:        /src/knowledge/ontology.rs
+//   Author:      Alex Roussinov
+//   Created:     2025-12-23
+//   Updated:     2026-01-11
 //
-//  This file is dual licensed under the MIT and Apache 2.0 licenses.
-//  Please see the root level LICENSE-MIT and LICENSE-APACHE files for details.
-// =============================================================================
+//   License:
+//       Dual-licensed under the MIT and Apache 2.0 licenses.
+//       See LICENSE-MIT and LICENSE-APACHE in the repository root for details.
+// ============================================================================
 
 use crate::knowledge::storage::{Storage, SledStorage};
 use anyhow::Result;
