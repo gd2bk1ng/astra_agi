@@ -75,11 +75,14 @@ impl CognitiveEnergy {
 pub struct CognitiveContext {
     pub active_goal: Option<Goal>,
     pub active_plan: Option<Plan>,
+
+    // Instant cannot be serialized; skip it.
+    #[serde(skip)]
     pub last_update: Instant,
 }
 
 /// Global cognitive state snapshot for Astra.
-#[derive(Debug, Serialize, Deserialize)]
+#[derive(Debug, Clone, Serialize, Deserialize)]
 pub struct CognitiveState {
     pub personality: Personality,
     pub personality_traits: PersonalityTraits,
