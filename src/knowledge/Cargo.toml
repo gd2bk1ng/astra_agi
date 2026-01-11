@@ -1,13 +1,29 @@
-# =============================================================================
-# Astra AGI - Knowledge Crate
-# File: Cargo.toml
+# ============================================================================
+#                         ASTRA AGI • KNOWLEDGE MODULE
+#              Ontology Engine & Structured Reasoning Infrastructure
+# ---------------------------------------------------------------------------
+#   Architectural Role:
+#       Core component of Astra’s Knowledge Layer. This crate provides the
+#       foundations for structured knowledge representation, ontology
+#       management, inference mechanisms, and learning support. It serves as
+#       the semantic backbone that higher‑order cognition relies on for
+#       reasoning, retrieval, and conceptual understanding.
 #
-# Description:
-# Knowledge base and ontology engine for Astra AGI, providing structured
-# representations, inference mechanisms, and learning support.
+#   Core Functions:
+#       • Represent structured knowledge and ontological relationships
+#       • Support inference, reasoning, and semantic querying
+#       • Provide a scalable knowledge base for cognitive modules
+#       • Enable integration with graph, logic, or symbolic engines
 #
-# Dual-licensed under MIT OR Apache-2.0.
-# =============================================================================
+#   File:        /src/knowledge/Cargo.toml
+#   Author:      Alex Roussinov
+#   Created:     2025-12-25
+#   Updated:     2026-01-11
+#
+#   License:
+#       Dual-licensed under the MIT and Apache 2.0 licenses.
+#       See LICENSE-MIT and LICENSE-APACHE in the repository root for details.
+# ============================================================================
 
 [package]
 name = "astra_knowledge"
