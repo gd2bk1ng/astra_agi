@@ -1,17 +1,29 @@
-// =============================================================================
-//  Astra AGI - Learning Algorithm Model (LAM)
-//  File: trainer.rs
+// ============================================================================
+//                     ASTRA AGI • LEARNING ALGORITHM MODEL (LAM)
+//        Training Loops, Model Updates & Adaptive Optimization Engine
+// ----------------------------------------------------------------------------
+//   Architectural Role:
+//       Implements Astra’s core training logic, including forward passes,
+//       gradient‑based updates, and asynchronous learning routines. This module
+//       provides the foundational infrastructure for model refinement, policy
+//       updates, and continuous adaptation within the Learning subsystem.
 //
-//  Description:
-//  Implements learning algorithms, model updates, and training loops.
+//   Core Functions:
+//       • Define trainable model structures and forward‑pass interfaces
+//       • Execute asynchronous training loops over datasets
+//       • Trigger gradient computation via autodiff
+//       • Apply parameter updates using configurable learning rates
+//       • Serve as the backbone for future optimizers and advanced trainers
 //
-//  Author:      Alex Roussinov
-//  Created:     2025-12-23
-//  Updated:     2025-12-26
+//   File:        /src/learning/trainer.rs
+//   Author:      Alex Roussinov
+//   Created:     2025-12-23
+//   Updated:     2026-01-11
 //
-//  This file is dual licensed under the MIT and Apache 2.0 licenses.
-//  Please see the root level LICENSE-MIT and LICENSE-APACHE files for details.
-// =============================================================================
+//   License:
+//       Dual-licensed under the MIT and Apache 2.0 licenses.
+//       See LICENSE-MIT and LICENSE-APACHE in the repository root for details.
+// ============================================================================
 
 use anyhow::Result;
 use crate::autodiff::Variable;
