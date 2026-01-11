@@ -6,8 +6,16 @@ on:
   pull_request:
     branches: [ main ]
 
+concurrency:
+  group: astra-ci-${{ github.ref }}
+  cancel-in-progress: true
+
 jobs:
-  build-and-test:
+  # =====================================================================
+  # Backend: Rust (Astra AGI core, cognition, planning, etc.)
+  # =====================================================================
+  backend:
+    name: Backend (Rust)
     runs-on: ubuntu-latest
 
     services:
@@ -25,30 +33,181 @@ jobs:
           --health-timeout 5s
           --health-retries 5
 
+    env:
+      RUST_BACKTRACE: 1
+
     steps:
-      - uses: actions/checkout@v3
+      - name: Checkout repository
+        uses: actions/checkout@v4
 
+      # -----------------------------
+      # Rust toolchain + caching
+      # -----------------------------
       - name: Install Rust
-        uses: actions-rs/toolchain@v1
-        with:
-          toolchain: stable
-          override: true
+        uses: dtolnay/rust-toolchain@stable
 
+      - name: Cache Rust build
+        uses: actions/cache@v3
+        with:
+          path: |
+            ~/.cargo/registry
+            ~/.cargo/git
+            target
+          key: ${{ runner.os }}-cargo-${{ hashFiles('**/Cargo.lock') }}
+          restore-keys: |
+            ${{ runner.os }}-cargo-
+
+      # -----------------------------
+      # Security: cargo-audit
+      # -----------------------------
+      - name: Install cargo-audit
+        run: cargo install cargo-audit || true
+
+      - name: Run dependency security audit
+        run: cargo audit
+
+      # -----------------------------
+      # Linting: Clippy
+      # -----------------------------
+      - name: Run Clippy (Rust linter)
+        run: cargo clippy --all-targets --all-features -- -D warnings
+
+      # -----------------------------
+      # Formatting: Rustfmt
+      # -----------------------------
+      - name: Check formatting
+        run: cargo fmt --all -- --check
+
+      # -----------------------------
+      # Build & Test
+      # -----------------------------
       - name: Build Astra AGI
-        run: cargo build --verbose
+        run: cargo build --all --verbose
 
       - name: Run tests
-        run: cargo test --verbose
+        run: cargo test --all --verbose
+
+      # -----------------------------
+      # Coverage (optional, but powerful)
+      # -----------------------------
+      - name: Install tarpaulin
+        run: cargo install cargo-tarpaulin || true
+
+      - name: Run coverage
+        run: cargo tarpaulin --out Xml
+        continue-on-error: true
+
+      - name: Upload coverage report
+        uses: actions/upload-artifact@v3
+        with:
+          name: coverage-report
+          path: tarpaulin-report.xml
+          if-no-files-found: ignore
+
+      # -----------------------------
+      # Benchmarks (non-blocking)
+      # -----------------------------
+      - name: Run benchmarks
+        run: cargo bench
+        continue-on-error: true
+
+      # -----------------------------
+      # Upload build artifacts (debug)
+      # -----------------------------
+      - name: Upload backend artifacts
+        uses: actions/upload-artifact@v3
+        with:
+          name: astra-backend-debug
+          path: target/debug/
+          if-no-files-found: ignore
+
+  # =====================================================================
+  # Frontend / Astra Browser (Node / astra_web / frontend)
+  # =====================================================================
+  frontend:
+    name: Frontend (Astra Browser)
+    runs-on: ubuntu-latest
+
+    defaults:
+      run:
+        working-directory: frontend  # change to astra_web when ready
+
+    steps:
+      - name: Checkout repository
+        uses: actions/checkout@v4
+
+      - name: Cache Node modules
+        uses: actions/cache@v3
+        with:
+          path: frontend/node_modules
+          key: ${{ runner.os }}-node-${{ hashFiles('frontend/package-lock.json') }}
+          restore-keys: |
+            ${{ runner.os }}-node-
 
       - name: Setup Node.js
-        uses: actions/setup-node@v3
+        uses: actions/setup-node@v4
         with:
           node-version: '18'
 
       - name: Install frontend dependencies
-        working-directory: frontend
         run: npm install
 
+      - name: Run frontend lint (if configured)
+        run: npm run lint
+        continue-on-error: true
+
       - name: Run frontend tests
-        working-directory: frontend
         run: npm test -- --watchAll=false
+
+      - name: Build frontend
+        run: npm run build
+
+      - name: Upload frontend artifacts
+        uses: actions/upload-artifact@v3
+        with:
+          name: astra-frontend-build
+          path: frontend/dist/
+          if-no-files-found: ignore
+
+  # =====================================================================
+  # WASM build (for future Astra Browser WASM modules)
+  # =====================================================================
+  wasm:
+    name: WASM Build (optional)
+    runs-on: ubuntu-latest
+    needs: backend
+
+    steps:
+      - name: Checkout repository
+        uses: actions/checkout@v4
+
+      - name: Install Rust (nightly or stable, as needed)
+        uses: dtolnay/rust-toolchain@stable
+
+      - name: Install wasm32 target
+        run: rustup target add wasm32-unknown-unknown
+
+      - name: Build WASM modules
+        run: |
+          # Example: adjust to your actual WASM crate(s)
+          cargo build -p astra_wasm --target wasm32-unknown-unknown --release
+        continue-on-error: true
+
+      - name: Upload WASM artifacts
+        uses: actions/upload-artifact@v3
+        with:
+          name: astra-wasm
+          path: target/wasm32-unknown-unknown/release/
+          if-no-files-found: ignore
+
+  # =====================================================================
+  # Meta: CI status
+  # =====================================================================
+  ci-status:
+    name: CI Status
+    runs-on: ubuntu-latest
+    needs: [backend, frontend]
+
+    steps:
+      - name: All systems green
+        run: echo "Astra CI completed successfully."
