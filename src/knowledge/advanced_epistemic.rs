@@ -1,18 +1,30 @@
-// =============================================================================
-//  Astra AGI - Advanced Epistemic Integration Module
-//  File: advanced_epistemic.rs
+// ============================================================================
+//              ASTRA AGI • ADVANCED EPISTEMIC INTEGRATION MODULE
+//        Unified Bayesian–Fuzzy Reasoning for Uncertainty & Belief Revision
+// ---------------------------------------------------------------------------
+//   Architectural Role:
+//       Component of Astra’s Knowledge Layer, responsible for integrating
+//       probabilistic (Bayesian) and approximate (fuzzy logic) reasoning into
+//       a unified epistemic pipeline. This module enables Astra to revise
+//       beliefs, handle uncertainty, and perform inference across heterogeneous
+//       knowledge sources with both crisp and graded confidence models.
 //
-//  Description:
-//  Integrates Bayesian and Fuzzy Reasoners into the epistemic reasoning pipeline.
-//  Provides unified interfaces for belief revision, inference, and uncertainty handling.
-//  Includes integration tests for reasoning correctness.
+//   Core Functions:
+//       • Provide Bayesian marginal queries and evidence incorporation
+//       • Support fuzzy logic operations for graded truth evaluation
+//       • Combine probabilistic and fuzzy reasoning into a unified interface
+//       • Log epistemic updates into narrative memory for traceability
+//       • Include integration tests ensuring reasoning correctness
 //
-//  Author:      Alex Roussinov
-//  Created:     2025-12-25
-//  Updated:     2025-12-25
+//   File:        /src/knowledge/advanced_epistemic.rs
+//   Author:      Alex Roussinov
+//   Created:     2025-12-25
+//   Updated:     2026-01-11
 //
-//  This file is dual licensed under the MIT and Apache 2.0 licenses.
-// =============================================================================
+//   License:
+//       Dual-licensed under the MIT and Apache 2.0 licenses.
+//       See LICENSE-MIT and LICENSE-APACHE in the repository root for details.
+// ============================================================================
 
 pub mod bayesian_reasoner;
 pub mod fuzzy_reasoner;
