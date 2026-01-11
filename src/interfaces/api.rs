@@ -1,17 +1,28 @@
-// =============================================================================
-// Astra AGI - API Interface
-// File: api.rs
+// ============================================================================
+//                          ASTRA AGI • API INTERFACE
+//                 REST & WebSocket Gateway to Cognitive Runtime
+// ---------------------------------------------------------------------------
+//   Architectural Role:
+//       Serves as the primary external interaction layer for Astra AGI. This
+//       module exposes REST and WebSocket endpoints that allow clients to
+//       query system state, dispatch messages, and engage in real‑time
+//       bidirectional communication with the cognitive engine.
 //
-// Description:
-// Provides REST and WebSocket API endpoints for interacting with Astra AGI runtime.
-// Handles message dispatch, state queries, and real-time communication.
+//   Core Functions:
+//       • Provide REST endpoints for structured queries and control actions
+//       • Maintain WebSocket channels for streaming, events, and live updates
+//       • Route inbound messages into the cognitive pipeline
+//       • Expose safe, observable access to runtime state and activity
 //
-//  Author:      Alex Roussinov
-//  Created:     2025-12-23
-//  Updated:     2025-12-26
+//   File:        /src/interfaces/api.rs
+//   Author:      Alex Roussinov
+//   Created:     2025-12-23
+//   Updated:     2026-01-11
 //
-// Licensed under MIT OR Apache 2.0
-// =============================================================================
+//   License:
+//       Dual-licensed under the MIT and Apache 2.0 licenses.
+//       See LICENSE-MIT and LICENSE-APACHE in the repository root for details.
+// ============================================================================
 
 use actix_web::{web, HttpResponse, Responder};
 use serde::{Deserialize, Serialize};
