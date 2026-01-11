@@ -1,16 +1,28 @@
-// =============================================================================
-//  Astra AGI
-//  File: astra_agi\src\knowledge\reasoner.rs
+// ============================================================================
+//                         ASTRA AGI • LOGIC REASONER CORE
+//        Concept Hierarchy Inference & Deductive Reasoning Foundations
+// ---------------------------------------------------------------------------
+//   Architectural Role:
+//       Component of Astra’s Knowledge Layer, providing the foundational logic
+//       engine for concept‑based inference and hierarchical reasoning. This
+//       module enables Astra to determine class membership, traverse concept
+//       taxonomies, and perform structural deductions over the ontology.
 //
-//  Description: Logic engine for inference and deduction.
+//   Core Functions:
+//       • Determine whether an entity is an instance of a concept or any of its descendants
+//       • Recursively evaluate concept hierarchies for subclass relationships
+//       • Serve as a lightweight reasoning layer for higher‑order inference modules
+//       • Provide extensible hooks for future deductive and rule‑based logic
 //
-//  Author:      Alex Roussinov
-//  Created:     2025-12-23
-//  Updated:     2025-12-24
+//   File:        /src/knowledge/reasoner.rs
+//   Author:      Alex Roussinov
+//   Created:     2025-12-23
+//   Updated:     2026-01-11
 //
-//  This file is dual licensed under the MIT and Apache 2.0 licenses.
-//  Please see the root level LICENSE-MIT and LICENSE-APACHE files for details.
-// =============================================================================
+//   License:
+//       Dual-licensed under the MIT and Apache 2.0 licenses.
+//       See LICENSE-MIT and LICENSE-APACHE in the repository root for details.
+// ============================================================================
 
 use crate::knowledge::{Ontology, Id, Concept, Entity};
 
