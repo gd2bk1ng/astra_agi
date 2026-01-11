@@ -1,17 +1,29 @@
-// =============================================================================
-// Astra AGI - Voice Interface
-// File: voice.rs
+// ============================================================================
+//                         ASTRA AGI • VOICE INTERFACE
+//              Speech Recognition & Text‑to‑Speech Integration Layer
+// ---------------------------------------------------------------------------
+//   Architectural Role:
+//       Component of Astra’s Interfaces Layer, responsible for enabling
+//       natural voice‑based interaction. This module provides the foundations
+//       for speech‑to‑text (STT) input processing and text‑to‑speech (TTS)
+//       output synthesis, allowing Astra to communicate through spoken
+//       language in real‑time environments.
 //
-// Description:
-// Handles voice input and output integration for Astra AGI,
-// including speech recognition and text-to-speech functionalities.
+//   Core Functions:
+//       • Capture and transcribe spoken input into actionable text
+//       • Synthesize natural‑sounding speech from textual responses
+//       • Serve as the voice gateway for hands‑free or conversational use
+//       • Integrate with external STT/TTS backends or device‑level audio APIs
 //
-//  Author:      Alex Roussinov
-//  Created:     2025-12-23
-//  Updated:     2025-12-26
+//   File:        /src/interfaces/voice.rs
+//   Author:      Alex Roussinov
+//   Created:     2025-12-23
+//   Updated:     2026-01-11
 //
-// Licensed under MIT OR Apache 2.0
-// =============================================================================
+//   License:
+//       Dual-licensed under the MIT and Apache 2.0 licenses.
+//       See LICENSE-MIT and LICENSE-APACHE in the repository root for details.
+// ============================================================================
 
 use anyhow::Result;
 
