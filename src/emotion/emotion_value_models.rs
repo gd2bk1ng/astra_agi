@@ -1,22 +1,29 @@
-// =============================================================================
-//  Astra AGI - Emotion and Value Models (EVM)
-//  File: emotion_value_models.rs
+// ============================================================================
+//                     ASTRA AGI • EMOTION & VALUE MODELS
+//                 Affective Dynamics & Ethical Decision Modulation
+// ---------------------------------------------------------------------------
+//   Architectural Role:
+//       Component of the Affective Cognition Layer. This module defines the
+//       Emotion and Value Models (EVM), which encode Astra’s internal emotional
+//       states and long‑term guiding values. These signals shape prioritization,
+//       influence reasoning tone, and provide affect‑aware modulation across
+//       the cognitive pipeline.
 //
-//  Description:
-//  Implements affective state modeling and value-based decision influences.
-//  Simulates emotions such as urgency, motivation, and stress,
-//  and represents core values to guide ethical and sustainable AGI behavior.
+//   Core Functions:
+//       • Model transient affective states (urgency, motivation, stress)
+//       • Represent stable value structures for ethical alignment
+//       • Modulate task selection, focus, and reasoning pathways
+//       • Provide affect‑aware signals to higher‑order cognition
 //
-//  These models modulate task prioritization and reasoning,
-//  giving Astra a richer, more human-aligned decision framework.
+//   File:        /src/emotion/emotion_value_models.rs
+//   Author:      Alex Roussinov
+//   Created:     2025-12-24
+//   Updated:     2026-01-11
 //
-//  Author:      Alex Roussinov
-//  Created:     2025-12-24
-//  Updated:     2025-12-25
-//
-//  This file is dual licensed under the MIT and Apache 2.0 licenses.
-//  Please see the root level LICENSE-MIT and LICENSE-APACHE files for details.
-// =============================================================================
+//   License:
+//       Dual-licensed under the MIT and Apache 2.0 licenses.
+//       See LICENSE-MIT and LICENSE-APACHE in the repository root for details.
+// ============================================================================
 
 use std::collections::HashMap;
 
