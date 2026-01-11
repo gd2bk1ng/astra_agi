@@ -1,20 +1,30 @@
-// =============================================================================
-//  Astra AGI - Epistemic Reasoner Module (ERM)
-//  File: epistemic_reasoner.rs
+// ============================================================================
+//                 ASTRA AGI • EPISTEMIC REASONER MODULE (ERM)
+//        Belief Revision, Uncertainty Management & Knowledge Consistency
+// ---------------------------------------------------------------------------
+//   Architectural Role:
+//       Core component of Astra’s Knowledge Layer, responsible for managing
+//       uncertain, conflicting, or evolving knowledge. This module implements
+//       belief revision, confidence updating, and uncertainty handling, while
+//       integrating tightly with Narrative Memory to record epistemic changes
+//       and support reflective reasoning about knowledge evolution.
 //
-//  Description:
-//  Provides reasoning capabilities over uncertain and conflicting knowledge.
-//  Implements belief revision, confidence updating, and uncertainty management.
-//  Extended to log belief revisions and rejections into Narrative Memory,
-//  enabling Astra to reflect on belief changes and knowledge evolution.
+//   Core Functions:
+//       • Revise beliefs using confidence thresholds and weighted updates
+//       • Reject low‑confidence or unreliable evidence with clear rationale
+//       • Incorporate contextual source reliability into belief updates
+//       • Combine conflicting facts using consensus‑based aggregation
+//       • Log belief updates and rejections into Narrative Memory for traceability
 //
-//  Author:      Alex Roussinov
-//  Created:     2025-12-27
-//  Updated:     2026-01-03
+//   File:        /src/knowledge/epistemic_reasoner.rs
+//   Author:      Alex Roussinov
+//   Created:     2025-12-27
+//   Updated:     2026-01-11
 //
-//  This file is dual licensed under the MIT and Apache 2.0 licenses.
-//  Please see the root level LICENSE-MIT and LICENSE-APACHE files for details.
-// =============================================================================
+//   License:
+//       Dual-licensed under the MIT and Apache 2.0 licenses.
+//       See LICENSE-MIT and LICENSE-APACHE in the repository root for details.
+// ============================================================================
 
 use crate::knowledge::extended_ontology::{Fact, Confidence};
 use crate::memory::narrative_memory::NarrativeMemory;
